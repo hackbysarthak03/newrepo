@@ -140,7 +140,7 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",  # or the path where your static files are stored
 ]
 
-STATIC_ROOT = BASE_DIR / 'productionfiles'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
 # Default primary key field type

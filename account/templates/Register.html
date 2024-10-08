@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <!-- Sign In Window begins here -->
+
+    <div class="main">
+        <div class="auth-section register-section">
+            <div class="section section1">
+                <img src="https://res.cloudinary.com/doy34nvkz/image/upload/v1727946110/auth-img_dnif51.jpg">
+            </div>
+            {% if section == 'new' %}
+            <div class="section section2">
+                <div class="auth-header">
+                    <div id="head1">
+                        Register With Us&nbsp;<span style="color: #1e85f0;">!</span>
+                    </div>
+                    <div id="head2">
+                        Hoping everything's fine!
+                    </div>
+                </div>
+                <form class="form" method="post">
+                    {% csrf_token %}
+                    <div class="auth-main register-main">
+                    <select class="input-box" name="role" required>
+                        <option selected disabled>- Register as -</option>
+                        {% for value, label in roles %}
+                        <option value="{{value}}">{{label}}</option>
+                        {% endfor %}
+                    </select>
+                    <input type="email" name='email' class="input-box" placeholder="Email">
+                    <div class="enter-names">
+                        <input type="text" name='fname' class="input-box" placeholder="First Name">
+                        <input type="text" name='lname' class="input-box" placeholder="Last Name">
+                    </div>
+                    <input type="password" name='psw' class="input-box" placeholder="Password">
+                    <input type="text" name='cpsw' class="input-box" placeholder="Confirm Password">
+                        
+                    </div>
+                    <div style="margin: 1.2rem 0rem">
+                        <button type='submit' style="border:none; outline:none;" class="auth-button">
+                        <div>Register&nbsp;&nbsp;<i class="fa-solid fa-user-plus checkup-btn"></i>
+                        </div>
+                        </button>
+                        <div class="account-create">
+                        Already have an account?&nbsp;&nbsp;<span class="pass-text"><a href="/sign-in/" style="text-decoration:none; color:black;">Login Now</a></span>
+                        </div>
+                    </div>
+                </form>
+            
+            </div>
+                {% elif section == 'verify' %}
+                <div class="section section2 new-section" style="justify-content:center; align-items:center;">
+                    <div class="auth-header">
+                        <div id="head1" style="color: #1e85f0">
+                            Verify Email⌛
+                        </div>
+                        <div id="head2" >
+                            Link Sent to your Email
+                        </div>
+                    </div>
+                </div>
+                {% elif section == 'success' %}
+                <div class="section section2 new-section" style="justify-content:center; align-items:center;">
+                    <div class="auth-header">
+                        <div id="head1">
+                            Successful ✅
+                        </div>
+                        <div id="head2">
+                            Your Email Verification is successful!
+                        </div>
+                        <div style="margin-top: 4rem; font-weight: bold;">
+                        <li class="navbar-list-item"><a class="navbar-list-item" href="/sign-in/">Check-in Now!</a></li>
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                <div class="section section2 new-section" style="justify-content:center; align-items:center;">
+                    <div class="auth-header">
+                        <div id="head1">
+                            Error ⚠️
+                        </div>
+                        <div id="head2">
+                            The Link is not accessible
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+        </div>
+    </div>
+
+    {% endblock %}

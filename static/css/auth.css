@@ -1,0 +1,287 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --font-family: "DM Sans", sans-serif;
+}
+
+/* body{
+    background-color: #f5f5f7;
+} */
+
+.main{
+    height: 90vh;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.auth-section{
+    display: flex;
+    flex-direction: row;
+    height: 90vh;
+    width: 60vw;
+    gap: 2rem;
+    padding: 3rem;
+    background-color:white;
+}
+
+.register-section{
+    height: 80vh;
+}
+
+.section{
+    width: 100%;
+    height: 100%;
+}
+
+.section1{
+    overflow: hidden;
+}
+
+.section2{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.section1 img{
+    object-fit: cover;
+    transform: scale(1);
+    height: 100%;
+    width: 100%;
+    transition: .3s ease;
+    cursor: pointer;
+    opacity: 0.5;
+    animation: dim 2s infinite;
+}
+
+@keyframes dim {
+
+    0%{
+        opacity: 0.5;
+        transform: scale(1.05);
+    }
+
+    50%{
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    100%{
+        opacity: 0.5;
+        transform: scale(1.05);
+    }
+    
+}
+
+
+
+.auth-section:hover{
+    border-radius: 0;
+}
+
+
+.auth-header{
+    display: flex;
+    flex-direction: column;
+    font-family: var(--font-family);
+    
+}
+
+#head1{
+    font-size: 4rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+#head2{
+    font-size: 2rem;
+    text-align: center;
+}
+
+.auth-main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+.register-main{
+    gap: 1rem;
+}
+
+.pass{
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    width: 100%;
+}
+
+.forget-pass{
+    text-align: right;
+    font-size: 1.5rem;
+    font-family: var(--font-family);
+    transition: .3s ease;
+}
+
+.forget-pass:hover{
+    color: red;
+}
+
+.pass-text{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.account-create{
+    text-align: center; 
+    margin: 1rem 0rem;
+    font-family: var(--font-family);
+    font-size: 1.3rem;
+}
+
+.input-box{
+    height: 5rem;
+    width: 100%;
+    padding: 1.5rem;
+    font-size: 1.3rem;
+    color: #000000;
+    border: .5px solid #c6c6c6;
+    border-radius: 5px;
+    font-family: var(--font-family);
+}
+
+.input-box:focus{
+    outline: none;
+}
+
+.auth-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 5rem;
+    font-family: var(--font-family);
+    font-size: 1.6rem;
+    font-weight: bold;
+    background: rgb(30,133,240);
+    color: white;
+    border-radius: 4px;
+    transition: .3s ease;
+    cursor: pointer;
+}
+
+.checkup-btn{
+    color: white;
+    transition: .3s ease;
+}
+
+.auth-button:hover{
+    background: rgb(32, 114, 203);
+
+    .checkup-btn{
+        transform: translateX(20%);
+    }
+}
+
+
+
+
+@media(max-width:1700px){
+    .auth-section{
+        height: 80vh;
+    }
+
+    .register-section{
+        height: 80vh;
+    }
+    
+}
+
+@media(max-width:1400px){
+    .auth-section{
+        width: 80vw;
+        height: 80vh;
+    }
+}
+
+@media(max-width:1100px){
+    .auth-section{
+        width: 90vw;
+        height: 60vh;
+    }
+
+    .register-section{
+        height: 80vh;
+    }
+}
+
+@media(max-width:950px){
+    #head1{
+        font-size: 3rem;
+    }
+
+    #head2{
+        font-size: 1.5rem;
+    }
+
+    .auth-button{
+        font-size: 1.5rem;
+        height: 4rem;
+    }
+
+    .input-box{
+        height: 5rem;
+        font-size: 1.2rem;
+    }
+
+    .forget-pass{
+        font-size: 1.2rem;
+    }
+
+    .register-section{
+        height: 70vh;
+    }
+}
+
+.enter-names{
+    display: flex;
+    flex-direction: row;
+    gap: .5rem;
+    width: 100%;
+}
+
+@media(max-width:700px){
+    .auth-section{
+        width: 90vw;
+        height: 60vh;
+    }
+
+    .register-section{
+        height: 70vh;
+    }
+}
+
+@media(max-width:620px){
+    .section1{
+        display: none;
+    }
+
+    .auth-section{
+        width: 90vw;
+        height: 60vh;
+    }
+
+    .register-section{
+        height: 70vh;
+    }
+}

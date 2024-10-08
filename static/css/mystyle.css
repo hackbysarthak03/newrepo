@@ -1,0 +1,194 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --font-family: "DM Sans", sans-serif;
+}
+
+/* Width of the scrollbar */
+::-webkit-scrollbar {
+    width: 8px; /* width for vertical scrollbar */
+    height: 12px; /* height for horizontal scrollbar */
+}
+
+/* Track (background) of the scrollbar */
+::-webkit-scrollbar-track {
+    background: #ffffff; /* track color */
+    border-radius: 10px; /* optional: rounded corners */
+}
+
+/* Handle (the draggable part of the scrollbar) */
+::-webkit-scrollbar-thumb {
+    background: #1e85f0; /* handle color */
+    border-radius: 10px; /* optional: rounded corners */
+}
+
+/* Handle hover state */
+::-webkit-scrollbar-thumb:hover {
+    background: #555; /* handle color on hover */
+}
+
+
+html {
+    font-size: 62.5%;
+    overflow-x: hidden;
+    /* 1 rem = 10px */
+}
+
+body {
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+.auth-icon{
+    height: 2.5rem;
+    width: 2.5rem;
+}
+
+.firstClass {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #F5F5F7;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2.5rem;
+    background-color: #F5F5F7;
+    width: 70%;
+}
+
+.logo {
+    font-size: 3rem;
+    font-family: var(--font-family);
+    font-weight: bolder;
+}
+
+.header .navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 7;
+    height: 7rem;
+    font-size: 1.5rem;
+    text-transform: capitalize;
+    font-family: var(--font-family);
+}
+
+.navbar-list {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    gap: 3rem;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none !important;
+}
+
+.navbar-list-item {
+    text-decoration: none !important;
+    font-size: 1.8rem;
+    color: black;
+    transition: .2s ease;
+    justify-content: center;
+    display: flex;
+}
+
+.navbar-list-item:hover {
+    text-decoration: none;
+    color: #1e85f0;
+}
+
+.navbar-mobile-icon {
+    height: 2.5rem;
+    width: 2.5rem;
+}
+
+.navbar-mobile-btn {
+    display: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+.navbar-mobile-icon[name="close-outline"] {
+    display: none;
+}
+
+
+
+/*  Responsive Making */
+
+@media(max-width: 1300px) {
+
+    .navbar-mobile-btn {
+        display: block;
+        z-index: 9;
+    }
+
+    .header {
+        width: 90%;
+    }
+
+    .hero-section{
+        width: 90%;
+    }
+
+    .navbar-elements {
+        background-color: rgb(255, 255, 255);
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 30%;
+        right: 0;
+        display: flex;
+        justify-content: center;
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+        transform: translateX(100vw);
+        visibility: hidden;
+        pointer-events: none;
+        transition: .5s ease-out;
+    }
+
+    .navbar-list {
+        text-decoration: none;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .active .navbar-elements {
+        transform: translateX(0);
+        transform: translate(0);
+        visibility: visible;
+        pointer-events: auto;
+    }
+
+    .active .navbar-mobile-btn .navbar-mobile-icon[name="close-outline"] {
+        display: block;
+    }
+
+    .active .navbar-mobile-btn .navbar-mobile-icon[name="menu-outline"] {
+        display: none;
+    }
+
+    .active * {
+        overflow-y: hidden;
+    }
+
+    .no-scroll {
+        height: 100vh;
+        overflow: hidden;
+    }
+
+}

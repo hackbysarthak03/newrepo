@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="dept-class">
+        {% for dept in departments %}
+        <div class="dept-item">
+            <div class="dept-img"><img src="{{dept.dept_img.url}}"></div>
+            <div class="dept-name">{{ dept.name }}</div>
+        </div>
+        {% empty %}
+        No Departments found
+        {% endfor %}
+        
+    </div>
+
+{% endblock %}

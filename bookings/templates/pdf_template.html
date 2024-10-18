@@ -1,0 +1,259 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Output</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Redressed&family=Ubuntu:wght@400;700&display=swap");
+
+        :root {
+            --bg-clr: #b3b3b3;
+            --white: #fff;
+            --invoice-bg: #e7e7e9;
+            --primary-clr: #2f2929;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Ubuntu", sans-serif;
+        }
+
+        body {
+            background: var(--bg-clr);
+            font-size: 12px;
+            line-height: 20px;
+            color: var(--primary-clr);
+            padding: 0 20px;
+        }
+
+        .main_title {
+            font-weight: 700;
+            font-size: 16px;
+            text-transform: uppercase;
+            color: var(--primary-clr);
+            margin-bottom: 10px;
+        }
+
+        .p_title {
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .p_title>span {
+            font-weight: 400;
+            font-size: 12px;
+        }
+
+        .text_right {
+            text-align: right;
+        }
+
+        .text_center {
+            text-align: center;
+        }
+
+        .i_row {
+            display: flex;
+        }
+
+        .invoice {
+            width: 800px;
+            max-width: 100%;
+            height: auto;
+            background: var(--white);
+            margin: 20px auto;
+        }
+
+        .invoice>div {
+            width: 100%;
+            padding: 40px;
+        }
+
+        .invoice .invoice_info .i_row,
+        .invoice .invoice_payment .i_row {
+            justify-content: space-between;
+        }
+
+        .invoice .invoice_info,
+        .invoice .invoice_terms,
+        .invoice .invoice_payment {
+            background: var(--invoice-bg);
+        }
+
+
+
+        .invoice .invoice_info>div:not(:last-child) {
+            margin-bottom: 40px;
+        }
+
+        .invoice .invoice_info h1 {
+            font-size: 38px;
+            line-height: 44px;
+            color: var(--primary-clr);
+        }
+
+        .invoice .w_15 {
+            width: 15%;
+        }
+
+        .invoice .w_50 {
+            width: 50%;
+        }
+
+        .invoice .w_55 {
+            width: 55%;
+        }
+
+        .invoice .i_table .i_row {
+            padding: 12px 10px;
+
+            border-bottom: 0;
+        }
+
+
+
+        .invoice .i_table .i_row p {
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .invoice .i_table .i_table_head .i_row,
+        .invoice .i_table .i_table_foot .grand_total_wrap {
+            background: var(--invoice-bg);
+        }
+
+        .invoice .invoice_right .terms {
+            margin: 0;
+        }
+
+        .but {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            margin: 10px;
+        }
+
+        .print {
+            padding: 10px;
+            border-radius: 0;
+            border: 0;
+            cursor: pointer;
+            background-color: #7c7c7c;
+            color: #fff;
+
+            text-transform: uppercase;
+            font-size: 10px;
+            transition: 0.3s ease;
+        }
+
+        .print:hover {
+            background-color: #f7f7f7;
+            color: #5f5f5f;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function ($) {
+            $(document).on('click', '.print', function (event) {
+                event.preventDefault();
+
+                var element = document.getElementById('doc');
+
+                html2pdf().set({ filename: 'Prescription.pdf' }).from(element).save()
+            });
+
+        });
+
+    </script>
+</head>
+
+<body>
+    <section>
+        <div class="invoice" id="doc">
+            <div class="invoice_info">
+                <div class="i_row">
+                    <div class="i_logo">
+                        <h1>Dr<span style="color: cornflowerblue;">.</span>Saheb!</h1>
+                    </div>
+                    <div class="title">
+                        <h3 style="color: #5f5f5f;">Prescription No.&nbsp;&nbsp;&nbsp;<span
+                                style="font-weight: 100;">{{booking.pr_no}}</span></h3>
+                    </div>
+                </div>
+                <div class="i_row">
+
+                    <div class="i_to">
+                        <div class="main_title">
+                            <p style="color: #5f5f5f;">Patient Details</p>
+                        </div>
+                        <div class="p_title">
+                            <p>{{booking.patient_profile.user.first_name}} {{booking.patient_profile.user.last_name}}</p>
+                            <span>Patient</span>
+                        </div>
+                        <div class="p_title">
+                            <span>{{booking.patient_profile.district}}</span>
+                            <span>{{booking.patient_profile.state}}</span>
+                        </div>
+                    </div>
+                    <div class="i_details text_right">
+                        <div class="main_title">
+                            <p style="color: #5f5f5f;">Physician Details</p>
+                        </div>
+                        <div class="p_title">
+                            <p>Dr. {{booking.doctor_profile.user.first_name}} {{booking.doctor_profile.user.last_name}}</p>
+                            <span>{{booking.doctor_profile.department}}</span>
+                            <span>{{booking.doctor_profile.reg_no}}</span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="invoice_table">
+                <div class="i_table">
+                    <div class="i_table_head">
+                        <div class="i_row">
+                            <div class="i_col w_55">
+                                <p class="p_title">PRESCRIPTION</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="i_table_body">
+                        <div class="i_row">
+                            <div class="i_col" style="text-align: justify;">
+                                <p style="font-style: italic;">Appointment booked on: <span
+                                        style="font-weight: 100;">{{booking.booked_on}}</span></p>
+                                <p style="font-style: italic;">Prescribed on: <span
+                                        style="font-weight: 100;">{{booking.prescribed_date}}</span></p>
+                                <span>{{booking.prescription}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="invoice_terms">
+                <div class="main_title">
+                    <p>Advice:</p>
+                </div>
+                <p style="text-align: justify; margin: 0;">1. Only Verified Physician Prescription is available.</p>
+                <p style="text-align: justify;">2. Use only Prescribed Medicines, Don't take medicines recommended by
+                    any third person.</p>
+                <p style="text-align: justify;">3. Personal Details are the property of the Company. We don't use the
+                    data for personal Profits.</p>
+                <p style="text-align: justify;">4. This Certificate can be verified using the Presription No. mentioned
+                    above</p>
+            </div>
+        </div>
+        <div class="but">
+            <button class="print">Download&nbsp;&nbsp;<i class="fa-solid fa-file-arrow-down"></i></button>
+        </div>
+    </section>
+</body>
+
+</html>

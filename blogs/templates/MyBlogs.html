@@ -1,0 +1,23 @@
+{% extends 'ProfileBase.html' %}
+
+{% block profileContent %}
+<div class="profile-section-tail">
+    <div class="tail-heading">
+        <span>My Blogs</span>
+        <a href="/my-blogs/write/"><i class="fa-duotone fa-solid fa-pen" style="color: white; font-size: 2rem; cursor: pointer;"></i></a>
+    </div>
+    {% for blog in blogs %}
+    <div class="profile-line tail-line">
+        <span class="tags" style="display:flex; flex-direction:row; justify-content:center; gap:20px">
+            <a href="/my-blogs/update/{{blog.slug}}"><i class="fa-solid fa-pen-to-square" style="color:#1e85f0; cursor:pointer;"></i></a>
+            <a href="/my-blogs/delete/{{blog.slug}}"><i class="fa-solid fa-trash" style="color:red; cursor:pointer;"></i></a>
+        </span>
+        <a href="/blogs/{{blog.slug}}" style="text-decoration:none; color: #1e85f0;"><span class="tag-detail">{{blog.title}}</span></a>
+    </div>
+    {% empty %}
+    <div class="profile-line" style="display: flex; flex-direction: row; justify-content: center; align-items: center; font-size: 2rem; color: #535353;">
+        No Blogs Found
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

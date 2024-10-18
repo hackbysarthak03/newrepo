@@ -49,8 +49,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'account',
+    'doctor',
+    'patient',
+    'blogs',
     'customuser',
     'department',
+    'bookings',
     'cloudinary',
     'cloudinary_storage'
 ]
@@ -79,6 +83,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'newproject.context_processors.getDoctorDetails',
+                'newproject.context_processors.getPatientDetails'
             ],
         },
     },
@@ -121,7 +127,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 

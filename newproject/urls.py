@@ -9,8 +9,14 @@ urlpatterns = [
     path('', views.home),
     path('who-we-are/', views.about),
     path('departments/', views.dept),
-    path('', include('account.urls'))
-    
+    path('departments/<dept>', views.getDoctors),
+    path('profile/', views.myProfile),
+    path('profile/update/', views.updateProfile),
+    path('profile/updateStatus/', views.updateStatus),
+    path('profile/join-meet/<roomID>', views.joinDoctorMeet),
+    path('', include('account.urls')),
+    path('', include('blogs.urls')),
+    path('', include('bookings.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

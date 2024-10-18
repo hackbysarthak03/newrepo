@@ -1,0 +1,47 @@
+{% extends 'ProfileBase.html' %}
+
+{% block profileContent %}
+<div class="profile-section-tail">
+    <div class="tail-heading">
+        <span style="font-size: 2rem;">Pen down a healthy Script!</span>
+        <button id="blogFormBtn" form="blogForm"
+            style="font-size: 2rem; background-color: transparent; border: none;width: max-content; color: white; cursor: pointer;">
+            <span id="saveBtn"
+                style="display: flex; flex-direction: row; align-items: center; justify-content: center;">
+                <i class="fa-solid fa-cloud-arrow-up"
+                    style="color: white; font-size: 2rem; cursor: pointer;"></i>
+                &nbsp;&nbsp;Post
+            </span>
+            <span id="loadingBtn" style="display: none; justify-content: center; align-items: center;"><img
+                    src="loading.gif" height="40px" width="40px"></span>
+        </button>
+
+    </div>
+    <form id="blogForm" method="post" enctype="multipart/form-data" style="width: 100%;">
+{% csrf_token %%}
+        <div class="profile-line tail-line">
+            <span class="tags">Blog Title</span>
+            <input class="profile-input" name="title" placeholder="What's on your mind today 🤔 ?" required>
+        </div>
+        <div class="tail-line">
+            <span class="tags">Content</span>
+            <textarea class="blog-content" name="content" placeholder="Pen down here 😗"
+                required></textarea>
+        </div>
+        <div class="profile-line tail-line">
+            <span class="tags">Category</span>
+            {% for department in departments %}
+            <div class="row" style="margin: 0px 12px;">
+                <input type="checkbox" name="category" value="{{department.name}}">
+                &nbsp;&nbsp;{{department.name}}
+            </div>
+            {% endfor %}
+        </div>
+        <div class="profile-line tail-line">
+            <span class="tags">Cover Img (3:1)</span>
+            <input type="file" name="cover-img" id="fileBtn">
+            <label id="coverBtnLable" for='fileBtn'> <i class="fa-solid fa-upload"></i> &nbsp;&nbsp;&nbsp;Upload Cover </label>
+        </div>
+    </form>
+</div>
+{% endblock %}

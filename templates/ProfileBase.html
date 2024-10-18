@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% comment %} Start Of Profile Main {% endcomment %}
+<container class="container">
+        <div class="profile-section">
+            <!-- Profile Section Head -->
+            <div class="profile-section-head">
+                <!-- Profile Photo -->
+                <div class="profile-photo">
+                    <img src="{{request.user.avatar.url}}"
+                        alt="Circular content">
+                </div>
+
+                <!-- Contents -->
+                <div class="contents">
+                    <div style="display: flex; flex-direction: column; ">
+                        <div class="profile-line" style="justify-content: center; font-size: 2rem; color: #535353;">
+                            {% if request.user.role == 'doctor' %}
+                            {% if doctorData.avail %}
+                            {% if request.user.is_doctor_verified %}
+                            <i class="fa-solid fa-heart-circle-check" style="color: #00d103;"></i>&nbsp;Online&nbsp;
+                            {% else %}
+                            <i class="fa-solid fa-heart-circle-xmark" style="color: #d12300;"></i>&nbsp;Offline&nbsp;
+                            {% endif %}
+                            {% else %}
+                            <i class="fa-solid fa-heart-circle-xmark" style="color: #d12300;"></i>&nbsp;Offline&nbsp;
+                            {% endif %}
+                            {% endif %}
+                        </div>
+                        <div class="profile-line profile-name">{{request.user.first_name}} {{request.user.last_name}}&nbsp;
+                            {% if request.user.role == 'doctor' %}
+                            {% if request.user.is_doctor_verified %}
+                            <i class="fa-sharp fa-solid fa-circle-check fa-xs"
+                                style="color: #0a6beb; font-size: 1.5rem;"></i>
+                            {% else %}    
+                            <i class="fa-solid fa-circle-exclamation" style="color: #f9d13e; font-size: 1.5rem;"></i>
+                            {% endif %}
+                            {% endif %}
+                            </div>
+                                {% if request.user.role == 'doctor' %}
+                        <div class="profile-line" style="justify-content: center;font-size: 2rem; color: #535353;">
+                            🩺&nbsp;&nbsp;Doctor</div>
+                            {% else %}
+                            <div class="profile-line" style="justify-content: center;font-size: 2rem; color: #535353;">
+                                😷&nbsp;&nbsp;Patient</div>
+                                {% endif %}
+                            </div>
+                            {% if request.user.role == 'doctor' %}
+                            <div class="profile-line profile-about">{{doctorData.desc}}</div>
+                            {% else %}
+                            <div class="profile-line profile-about">{{patientData.desc}}</div>
+                            {% endif %}
+                </div>
+
+                <!-- Button Groups -->
+                {% if request.user.role == 'doctor' %}
+                <div class="button-group">
+                    {% if request.user.is_doctor_verified %}
+
+                    <button id="manage-blogs" class="profile-button">Manage Blogs&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-pen"></i></button>
+
+                    {% if doctorData.avail %}
+
+                    <button id="change-status" class="profile-button">Get Offline&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-globe"></i></button>
+
+                    <button id="live-call" class="profile-button">Live Call&nbsp;&nbsp;&nbsp;<i
+                        class="fa-solid fa-phone-volume"></i></button>
+
+                    {% else %}
+
+                    <button id="change-status" class="profile-button">Get Online&nbsp;&nbsp;&nbsp;<i
+                        class="fa-solid fa-globe"></i></button>
+
+                    {% endif %}
+                    {% endif %}
+                </div>
+                {% endif %}
+            </div>
+
+
+            <!-- Profile Tail Begins here -->
+
+            <!-- For Profile View -->
+{% block profileContent %}
+            {% comment %} Consists the tail {% endcomment %}
+{% endblock %}
+    </div>
+</container>
+    {% comment %} End Of Profile Main {% endcomment %}
+{% endblock %}
+
+            
+ 
+    <!-- Script Tags -->
+
+    <script src="https://kit.fontawesome.com/32f5caa6d4.js" crossorigin="anonymous"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="index.js"></script>
+</body>
+
+</html>

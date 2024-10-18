@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+
+<div class="container-xyz">
+    {% for book in books %}
+    <div class="booking">
+        <div class="booking-content">
+            <div class="details">
+                <span class="tags">Appointment No.</span>
+                <span class="tag-detail">{{book.pr_no}}</span>
+            </div>
+            <div class="details">
+                <span class="tags">Patient</span>
+                <span class="tag-detail">{{book.patient_profile.user.first_name}} {{book.patient_profile.user.last_name}}</span>
+            </div>
+            <div class="details">
+                <span class="tags">Physician</span>
+                <span class="tag-detail">Dr. {{book.doctor_profile.user.first_name}} {{book.doctor_profile.user.last_name}}</span>
+            </div>
+            <div class="details">
+                <span class="tags">Booked on</span>
+                <span class="tag-detail">{{book.booked_on}}</span>
+            </div>
+        </div>
+
+        {% if book.status == 2 %}
+        <div class="details">
+            <span class="tags">Prescribed on</span>
+            <span class="tag-detail">{{book.prescribed_date}}</span>
+        </div>
+        {% endif %}
+        <div class="booking-end">
+
+            {% if book.status == 0 %}
+            <div class="booking-detail join">
+                Please Wait, Doctor will let you in soon...
+            </div>
+            <div class="booking-status in-queue">
+                In Queue
+            </div> 
+            {% elif book.status == 1 %}
+            <div class="booking-detail join">
+                <a href="/meet-doctor/{{book.pr_no}}" style="color:white; text-decoration:none;" target="_blank"><button style="background-color: #1e85f0;">Join Meet&nbsp;&nbsp;&nbsp;<i
+                    class="fa-solid fa-phone-volume"></i></button>&nbsp;&nbsp;</a>
+            </div>
+            <div class="booking-status under-treatment">
+                Under Treatment
+            </div>
+            {% else %}
+            <div class="booking-detail join">
+                <a href="/get-prescription/{{book.pr_no}}" style="color:white; text-decoration:none;" target="_blank"><button style="background-color: #1e85f0;">Prescription&nbsp;&nbsp;<i
+                    class="fa-solid fa-file-arrow-down"></i></button></a>
+            </div>
+            <div class="booking-status success">
+                Checkup Done
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    {% empty %}
+    <div class="about-head">No&nbsp;<span style="color: #1e85f0;">Bookings</span>&nbsp; Found!</div>
+    {% endfor %}
+</div>
+
+{% endblock %}

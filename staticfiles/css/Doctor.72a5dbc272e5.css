@@ -1,0 +1,152 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --font-family: "DM Sans", sans-serif;
+}
+
+.container-xyz{
+    font-family: var(--font-family);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.box2 {
+    width: 350px;
+    height: fit-content;
+    border-radius: 20px;
+    padding: 10px;
+    text-align: center;
+    background: #ededed;
+}
+
+.box1 {
+    margin-top: 10px;
+}
+
+.box1 .content {
+    margin: 15px 2px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.image{
+    height: 200px;
+    aspect-ratio: 1;
+    border: 7px solid #d1d1d1;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.image img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    transition: .3s ease-in-out;
+}
+
+.image img:hover {
+    transform: scale(1.05);
+}
+
+.level {
+    font-size: 0.7em;
+    background-color: rgb(164, 189, 183, 0.5);
+    width: min-content;
+    padding: 7px;
+    border-radius: 5px;
+    font-weight: bolder;
+    letter-spacing: 1px;
+    display: block;
+    margin: 0px auto;
+}
+
+.level p{
+    margin: 0;
+    width: fit-content;
+}
+
+.name {
+    font-size: 2rem;
+    font-weight: bolder;
+    letter-spacing: 1px;
+}
+
+.job_title {
+    font-size: 14px;
+    color: gray;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin:10px 0px;
+}
+
+.job_description {
+    font-size: 1.2rem;
+    color: gray;
+    margin: 10px 30px 20px;
+    text-align: justify;
+}
+
+.icons button {
+    width: fit-content;
+    height: fit-content;
+    border: none;
+    font-size: 1em;
+}
+
+
+.button .message {
+    background: #ededed;
+    border: 2px solid #000;
+}
+
+.button a{
+    text-decoration: none;
+    font-family: var(--font-family);
+}
+
+
+.button .connect {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin:1rem 0rem;
+    font-size: 11px;
+    width: 130px;
+    height: 40px;
+    border-radius: 10px;
+    background-color: #000;
+    color: #ededed;
+    border: none;
+}
+
+button.connect:hover {
+    cursor: pointer;
+    opacity: 0.8;
+    transition: 0.5s;
+}
+
+button.message:hover {
+    opacity: 0.8;
+    cursor: pointer;
+    transition: 0.5s;
+    
+}
+
+.join-doctor{
+    background-color: rgb(54, 128, 255);
+    color: white;
+}
+
+
+/* Content-1:End */

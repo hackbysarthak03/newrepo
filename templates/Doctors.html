@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container-xyz">
+
+    {% for doctor in doctors %}
+
+    {% if doctor.user.is_doctor_verified %}
+
+    {% if doctor.avail %}
+
+    <div class="box1 box2">
+        <div class="content">
+            <div class="image">
+                <img src="{{doctor.user.avatar.url}}"
+                    alt="Profile Image">
+            </div>
+            <div class="level">
+                <p>VERIFIED</p>
+            </div>
+            <div class="text">
+                <a href="#" style="color: black; text-decoration: none;"><p class="name">Dr. {{doctor.user.first_name}} {{doctor.user.last_name}}</p></a>
+                <p class="job_title">{{doctor.department}}</p>
+                <p class="job_description">{{doctor.desc}}</p>
+            </div>
+            <div class="button">
+                <a href="/book/{{doctor.id}}"><button class="connect" type="button"><i class="fa-regular fa-calendar-check" style="color: white;"></i>&nbsp;&nbsp;Appointment</button></a>
+            </div>
+        </div>
+    </div>
+
+    {% else %}
+    <div class="about-section">
+        <div class="about-head">Doctors<span style="color: #1e85f0;">&nbsp;Unavailable!</span></div>
+    </div>
+
+    {% endif %}
+
+    {% endif %}
+
+    {% empty %}
+
+    <div class="about-section">
+        <div class="about-head">No Doctors<span style="color: #1e85f0;">&nbsp;Found!</span></div>
+        <div class="about-detail">No Doctors Found in <span style="color: #1e85f0;">{{department}}</span> Category</div>
+    </div>
+
+    {% endfor %}
+</div>
+
+{% endblock %}

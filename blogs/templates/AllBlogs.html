@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<container class="container">
+    <div class="blogContent">
+        <div class="blogContentHead">
+            P<span style="font-size: 3rem;">osts</span>
+        </div>
+
+        <form method="post" class="filterForm">
+            {% csrf_token %}
+            <div class="checkbox-inline">
+                {% for department in departments %}
+                <div>
+                    <input class="checkbox-input" type="checkbox" name="category" value="{{department.name}}">
+                    <span class="checkbox-label">{{department.name}}</span>
+                </div>
+                {% endfor %}
+                
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 d-flex align-items-center justify-content-center">
+                    <button class="btn-submit" type="submit" name="apply-filter">Apply Filters&nbsp;&nbsp;<i
+                            class="fa-solid fa-filter" style="color: #ffffff;"></i></button>
+                    <button class="btn-submit-clear" type="submit" name="clear-filter">Clear
+                        Filters&nbsp;&nbsp;<i class="fa-solid fa-filter-circle-xmark clear-icon"></i></button>
+                </div>
+            </div>
+
+            {% if filters %}
+
+            <div class="checkbox-inline">
+                <div>
+                    Showing Results for &nbsp; &nbsp;
+                    {% for filter in filters %}
+                    <span style="font-weight: bold; color: #1e85f0;">
+                        {{filter}}
+                    </span>
+                    {% endfor %}
+                </div>
+               
+                
+            </div>
+            {% endif %}
+
+        </form>
+
+        {% for blog in blogs %}
+        <div class="post">
+            <div class="post-heading">
+                {{blog.title}}
+            </div>
+            <div class="post-content">
+                {{blog.content |truncatewords:50}}
+            </div>
+            <div class="post-end">
+                <div>
+                    <button>
+                        <a href="/blogs/{{blog.slug}}" style="color:white; text-decoration: none;">Read More</a>
+                    </button>
+                    <span>
+                        <i class="fa-regular fa-comment"></i>
+                        <span></span>
+                    </span>
+                </div>
+                <div>
+                    <span class="author">
+                        Dr. {{blog.user.user.first_name}} {{blog.user.user.last_name}}
+                    </span>
+                    <span class="createdOn">
+                        {{blog.created_on}}
+                    </span>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="post">
+            <div class="post-heading">
+                No Blogs Found
+            </div>
+
+        </div>
+        {% endfor %}
+    </div>
+
+</container>
+
+
+{% endblock %}

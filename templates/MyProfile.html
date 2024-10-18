@@ -1,0 +1,71 @@
+{%  extends "ProfileBase.html" %} 
+
+{% block profileContent %}
+            <div class="profile-section-tail">
+                <div class="tail-heading">
+                    <span>My Profile</span>
+                    <a href="/profile/update/"><i class="fa-duotone fa-solid fa-pen" style="color: white; font-size: 2rem;"></i></a>
+                </div>
+                <div class="profile-line tail-line">
+                    <span class="tags">Name</span>
+                    <span class="tag-detail">{{request.user.first_name}} {{request.user.last_name}}</span>
+                </div>
+                <div class="profile-line tail-line">
+                    <span class="tags">Email</span>
+                    <span class="tag-detail">{{request.user.email}}</span>
+                    
+                </div>
+                <div class="profile-line tail-line">
+                    <span class="tags">You are</span>
+                    <span class="tag-detail">{{request.user.role}}</span>
+                </div>
+
+                {% if request.user.role == 'doctor' %}
+                <div class="profile-line tail-line">
+                    <span class="tags">Department</span>
+                    <span class="tag-detail">{{doctorData.department}}</span>
+                </div>
+                <div class="profile-line tail-line">
+                    <span class="tags">Qualifications</span>
+                    <span class="tag-detail">{{doctorData.degree}}</span>
+                </div>
+                <div class="profile-line tail-line">
+                    <span class="tags">Specialist in</span>
+                    <span class="tag-detail">{{doctorData.specialist}}</span>
+                </div>
+                <div class="profile-line tail-line">
+                    <span class="tags">Reg. No.</span>
+                    <span class="tag-detail">{{doctorData.reg_no}}</span>
+                </div>
+                <div class="profile-line tail-line">
+                    <span class="tags">Associated Hospital</span>
+                    <span class="tag-detail">{{doctorData.hospital}}</span>
+                </div>
+                <div class="profile-line tail-line">
+                    <span class="tags">Cured Patients</span>
+                    <span class="tag-detail">12</span>
+                </div>
+                <div class="profile-line tail-line">
+                    <span class="tags">Address</span>
+                    <span class="tag-detail">{{doctorData.hospital_district}}, {{doctorData.hospital_state}}</span>
+                </div>
+                {% else %}
+                <div class="profile-line tail-line">
+                    <span class="tags">HealthCard Number</span>
+                    <span class="tag-detail">{{patientData.healthCard}}</span>
+                </div>
+                <div class="profile-line tail-line">
+                    <span class="tags">Address</span>
+                    <span class="tag-detail">{{patientData.district}}, {{patientData.state}}</span>
+                </div>
+                {% endif %}
+                
+                
+                
+                
+                
+                
+                <div class="profile-line" id="last-profile-line" style="height: 4rem;"></div>
+            </div>
+
+{% endblock %}

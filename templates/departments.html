@@ -6,7 +6,7 @@
         {% for dept in departments %}
         <div class="dept-item">
             <div class="dept-img"><img src="{{dept.dept_img.url}}"></div>
-            <div class="dept-name">{{ dept.name }}</div>
+            <a href="/departments/{{dept.name}}" style="color: white; text-decoration:none;"><div class="dept-name">{{ dept.name }}</div></a>
         </div>
         {% empty %}
         No Departments found

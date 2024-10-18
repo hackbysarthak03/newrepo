@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <!-- Start Of Main -->
+    <container class="container">
+        <div class="blogContent">
+            <div class="blog-cover">
+                <img src="{{blog.cover_img.url}}">
+            </div>
+            <div class="headlineForBlog">
+                {{blog.title}}
+            </div>
+            <div class="authorForBlog">
+                <div>
+                <span style="font-weight: bold;">Authored By:</span>
+                <span>Dr. {{blog.user.user.first_name}} {{blog.user.user.last_name}}</span>
+            </div>
+            <div>
+                <span style="font-weight: bold;">Written On:</span>
+                <span>{{blog.created_on}}</span>
+            </div>
+            </div>
+            <div class="contentForBlog">
+                {{blog.content}}
+            </div>
+            <div class="headlineForComment">
+                Comments&nbsp;&nbsp;<span style="color: #535353; font-size:2rem;"> {{comments | length}} </span>
+            </div>
+            <form class="addCommentForm" method="post">
+                {% csrf_token %}
+                <input name='content' class="addComment-Input" placeholder="Add your Comment">
+                <button class="addCommentBtn">Comment</button>
+            </form>
+            <div class="comments">
+                {% for com in comments %}
+                 <div class="commentBlock">
+                    <div class="commentAuthor">{{com.user.first_name}} {{com.user.last_name}}</div>
+                    <div class="comment">{{com.content}}</div>
+                </div>
+                {% empty %}
+                <div class="commentBlock">
+                    <div class="comment">No Comments Found</div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    </container>
+
+{% endblock %}

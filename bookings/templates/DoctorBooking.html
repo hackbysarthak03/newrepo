@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+
+<div class="container-xyz">
+    {% for book in books %}
+    <div class="booking">
+        <div class="booking-content">
+            <div class="details">
+                <span class="tags">Appointment No.</span>
+                <span class="tag-detail">{{book.pr_no}}</span>
+            </div>
+            <div class="details">
+                <span class="tags">Patient</span>
+                <span class="tag-detail">{{book.patient_profile.user.first_name}} {{book.patient_profile.user.last_name}}</span>
+            </div>
+            <div class="details">
+                <span class="tags">Physician</span>
+                <span class="tag-detail">Dr. {{book.doctor_profile.user.first_name}} {{book.doctor_profile.user.last_name}}</span>
+            </div>
+            <div class="details">
+                <span class="tags">Booked on</span>
+                <span class="tag-detail">{{book.booked_on}}</span>
+            </div>
+            {% if book.status == 1 %}
+
+            <div class="details">
+                <span class="tags">Invitation Sent</span>
+                <span class="tag-detail"><i class="fa-solid fa-check" style="color: rgb(0, 161, 0);"></i></span>
+            </div>
+            <div class="details">
+                <span class="tags">Prescription</span>
+                <form method = 'POST' action="/checkup-done/{{book.pr_no}}" id='pres-form' style="width:80%;">
+                    {% csrf_token %}
+                <span class="tag-detail"><textarea class="prescription-content" name="prescription-content" placeholder="Write Prescription Here" style="width:100%; height: 20rem; resize:none; outline:none;"
+                    required></textarea></span>
+                </form>
+            </div>
+
+            {% endif %}
+            {% if book.status == 2 %}
+
+            <div class="details">
+            <span class="tags">Prescribed on</span>
+            <span class="tag-detail">{{book.prescribed_date}}</span>
+            </div>
+
+        {% endif %}
+        </div>
+
+        <div class="booking-end">
+
+            {% if book.status == 0 %}
+            <div class="booking-detail join">
+                <a href="/my-bookings/invite/{{book.pr_no}}" style="color:white; text-decoration:none;"><button style="background-color: #1e85f0;">Invite Patient&nbsp;&nbsp;&nbsp;<i
+                    class="fa-solid fa-phone-volume"></i></button></a>
+            </div>
+            <div class="booking-status in-queue">
+                In Queue
+            </div>
+            {% elif book.status == 1 %}
+            <div class="booking-detail join">
+                <a href="/profile/join-meet/{{book.pr_no}}" style="color:white; text-decoration:none;" target="_blank"><button style="background-color: #1e85f0;">Join Meet&nbsp;&nbsp;&nbsp;<i
+                    class="fa-solid fa-phone-volume"></i></button>&nbsp;&nbsp;</a>
+                    <button type="submit" form='pres-form' style="background-color: #1e85f0;">Checkup Done&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-check" style="color: white;"></i></button>
+            </div>
+            <div class="booking-status under-treatment">
+                Under Treatment
+            </div>
+            {% else %}
+            <div class="booking-detail join">
+                <a href="/get-prescription/{{book.pr_no}}" style="color:white; text-decoration:none;" target="_blank"><button style="background-color: #1e85f0;">Prescription&nbsp;&nbsp;&nbsp;<i
+                    class="fa-solid fa-file-arrow-down"></i></button>&nbsp;&nbsp;</a>
+                
+            </div>
+            <div class="booking-status success">
+                Checkup Done
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

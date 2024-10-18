@@ -1,0 +1,105 @@
+{%  extends "ProfileBase.html" %} 
+
+{% block profileContent %}
+
+<div class="profile-section-tail">
+    <div class="tail-heading">
+        <span style="font-size: 2rem;">Update Profile</span>
+        <button id="updateProfileBtn" form="updateProfileForm"
+            style="font-size: 2rem; background-color: transparent; border: none;width: max-content; color: white; cursor: pointer;">
+            <span id="saveBtn"
+                style="display: flex; flex-direction: row; align-items: center; justify-content: center;">
+                <i class="fa-solid fa-floppy-disk" style="color: white; font-size: 2rem; cursor: pointer;"></i>
+                &nbsp;&nbsp;Save
+            </span>
+            <span id="loadingBtn" style="display: none; justify-content: center; align-items: center;"><img
+                    src="loading.gif" height="40px" width="40px"></span>
+        </button>
+    </div>
+    <form id="updateProfileForm" method="post" enctype="multipart/form-data" style="width: 100%;">
+        {% csrf_token %}
+        <div class="profile-line tail-line">
+            <span class="tags">Name</span>
+            <input class="profile-input" value="{{request.user.first_name}} {{request.user.last_name}}" disabled>
+        </div>
+        <div class="profile-line tail-line">
+            <span class="tags">Email</span>
+            <input class="profile-input" value="{{request.user.email}}" disabled>
+        </div>
+        <div class="profile-line tail-line">
+            <span class="tags">Role</span>
+            <input class="profile-input" value="{{request.user.role}}" disabled>
+        </div>
+        {% if request.user.role == 'doctor' %}
+        <div class="profile-line tail-line">
+            <span class="tags">Category</span>
+            <select class="select-class" name="dept">
+                <!-- Set the currently selected option explicitly -->
+                {% for department in departments %}
+        <option value="{{ department.name }}" {% if doctorData.department == department.name %}selected{% endif %}>
+            {{ department.name }}
+        </option>
+    {% endfor %}
+            </select>
+        </div>
+        <div class="profile-line tail-line">
+            <span class="tags">Qualifications</span>
+            <input class="profile-input" name='degree' value="{{doctorData.degree}}">
+        </div>
+        <div class="profile-line tail-line">
+            <span class="tags">Reg. No.</span>
+            <input class="profile-input" name='reg_no' value="{{doctorData.reg_no}}">
+        </div>
+        <div class="profile-line tail-line">
+            <span class="tags">Specialist in</span>
+            <input class="profile-input" name="specialist_in" value="{{doctorData.specialist}}">
+        </div>
+        <div class="profile-line tail-line">
+            <span class="tags">Associated Hospital</span>
+            <input class="profile-input" name="hospital" value="{{doctorData.hospital}}">
+        </div>
+        <div class="profile-line tail-line">
+            <span class="tags">District</span>
+            <input class="profile-input" name="district" value="{{doctorData.hospital_district}}">
+        </div>
+        <div class="profile-line tail-line">
+            <span class="tags">State</span>
+            <input class="profile-input" name="state" value="{{doctorData.hospital_state}}">
+        </div>
+        <div class="profile-line tail-line">
+            <span class="tags">Avatar</span>
+            <input type="file" name="avatar" id="fileBtn">
+            <label id="coverBtnLable" for='fileBtn'> <i class="fa-solid fa-upload"></i> &nbsp;&nbsp;&nbsp;Upload Profile Photo</label>
+        </div>
+        <div class="profile-line tail-line">
+            <span class="tags">Bio</span>
+            <input class="profile-input" name="desc" value="{{doctorData.desc}}">
+        </div>
+        {% else %}
+        <div class="profile-line tail-line">
+            <span class="tags">HealthCard No.</span>
+            <input class="profile-input" name="health-card" value="{{patientData.healthCard}}">
+        </div>
+        <div class="profile-line tail-line">
+            <span class="tags">District</span>
+            <input class="profile-input" name="district" value="{{patientData.district}}">
+        </div>
+        <div class="profile-line tail-line">
+            <span class="tags">State</span>
+            <input class="profile-input" name="state" value="{{patientData.state}}">
+        </div>
+        <div class="profile-line tail-line">
+            <span class="tags">Avatar</span>
+            <input type="file" name="avatar" id="fileBtn">
+            <label id="coverBtnLable" for='fileBtn'> <i class="fa-solid fa-upload"></i> &nbsp;&nbsp;&nbsp;Upload Profile Photo</label>
+        </div>
+        <div class="profile-line tail-line">
+            <span class="tags">Bio</span>
+            <input class="profile-input" name="desc" value="{{patientData.desc}}">
+        </div>
+        {% endif %}
+        <div class="profile-line" id="last-profile-line"></div>
+    </form>
+</div>
+
+{% endblock %}

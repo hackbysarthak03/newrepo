@@ -6,6 +6,9 @@ from django.contrib.auth import get_user_model
 from django.conf import settings
 from django.shortcuts import render, get_object_or_404
 from . import utils
+from django.http import HttpResponse
+from doctor.models import *
+from patient.models import *
 
 User = get_user_model()
 
@@ -80,18 +83,23 @@ def Register(request):
             user.save()
 
             # Sending Email to the Client
-            verification_link = request.build_absolute_uri(f"/email-verification-process/{user.unique_verify_string}/")
-            subject = 'First Step towards a healthy lifestyle! - Email Verification from Dr.Saheb!'
-            message = f'Hey {f_name} {l_name}, Greetings from Dr.Saheb! Please Verify your Email through the following Link: {verification_link}'
-            from_email = 'care.drsaheb@gmail.com'
-            recipient_list = [f'{email}']
-            send_mail(subject, message, from_email, recipient_list)
+            try:
+                verification_link = request.build_absolute_uri(f"/email-verification-process/{user.unique_verify_string}/")
+                subject = 'First Step towards a healthy lifestyle! - Email Verification from Dr.Saheb!'
+                message = f'Hey {f_name} {l_name}, Greetings from Dr.Saheb! Please Verify your Email through the following Link: {verification_link}'
+                from_email = 'care.drsaheb@gmail.com'
+                recipient_list = [f'{email}']
+                send_mail(subject, message, from_email, recipient_list, fail_silently=False)
+            except:
+                user.delete()
+                return HttpResponse('Error Sending Mail! Try to Register again !')
 
             return render(request, 'Register.html', {'roles':roles, 'section': 'verify'})
             
             # messages.success(request, 'Account Created Sucessfully ✅')
         except:
             # messages.error(request, 'Account already exist with the Email')
+            print('facing error')
             return redirect('/register')
 
     print('new new')
@@ -106,6 +114,30 @@ def verify(request, token):
         user = get_object_or_404(User, unique_verify_string=token)
         user.is_email_verified = True
         user.save()
+
+        try:
+            subject = 'Email Verification Successful! - Dr.Saheb!'
+            message = f'Hey {user.first_name} {user.last_name}, Greetings from Dr.Saheb! Your Email is successfully Verified at our Platform!'
+            from_email = 'care.drsaheb@gmail.com'
+            recipient_list = [f'{user.email}']
+            send_mail(subject, message, from_email, recipient_list, fail_silently=False)
+
+            subject = 'Welcome to Dr.Saheb! - One Stop Medical Destination!'
+            message = f'Hey {user.first_name} {user.last_name}, Greetings from Dr.Saheb! Thankyou for Registering for a healthy lifeStyle 😎! You are now a member of our healthy wealthy 💰 family! Let\'s Begin our Journey!'
+            from_email = 'care.drsaheb@gmail.com'
+            recipient_list = [f'{user.email}']
+            send_mail(subject, message, from_email, recipient_list, fail_silently=False)
+        except:
+            pass
+
+        if user.role == 'doctor':
+            DoctorProfile.objects.create(
+                user = user
+            )
+        else:
+            PatientProfile.objects.create(
+                user = user
+            )
 
         return render(request, 'Register.html', {
             'section': 'success'
@@ -187,7 +219,6 @@ def changePassword(request, token):
         'tag':'new'
     })
     
-
 def forgotPassword(request):
     roles = User.ROLE_CHOICES
 
